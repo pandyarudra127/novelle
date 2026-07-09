@@ -1,11 +1,11 @@
 import { Request, Response, NextFunction } from 'express'
 import jwt from 'jsonwebtoken'
 import { env } from '../config/env'
-import { AppError } from './errorHandler'
 
 export interface JwtPayload {
   userId: string
   email: string
+  role: string
 }
 
 declare global {
@@ -18,13 +18,14 @@ declare global {
 
 export function authenticate(
   req: Request,
-  _res: Response,
+  res: Response,
   next: NextFunction,
 ): void {
   const authHeader = req.headers.authorization
 
   if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    throw new AppError('Authentication required', 401)
+    res.status(401).json({ status: 'error', message: 'Authentication required' })
+    return
   }
 
   const token = authHeader.split(' ')[1]
@@ -34,6 +35,16 @@ export function authenticate(
     req.user = decoded
     next()
   } catch {
-    throw new AppError('Invalid or expired token', 401)
+    res.status(401).json({ status: 'error', message: 'Invalid or expired token' })
+  }
+}
+
+export function authorize(...roles: string[]) {
+  return (req: Request, res: Response, next: NextFunction): void => {
+    if (!req.user || !roles.includes(req.user.role)) {
+      res.status(403).json({ status: 'error', message: 'Insufficient permissions' })
+      return
+    }
+    next()
   }
 }
