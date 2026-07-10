@@ -10,6 +10,10 @@ import ResetPassword from './pages/ResetPassword'
 import VerifyEmail from './pages/VerifyEmail'
 import Search from './pages/Search'
 import Profile from './pages/Profile'
+import BookDetails from './pages/BookDetails'
+import AuthorPage from './pages/AuthorPage'
+import Discover from './pages/Discover'
+import BrowseGenre from './pages/BrowseGenre'
 import NotFound from './pages/NotFound'
 
 export default function App() {
@@ -24,6 +28,10 @@ export default function App() {
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
           <Route path="/search" element={<Search />} />
+          <Route path="/books/:id" element={<BookDetails />} />
+          <Route path="/author/:authorName" element={<AuthorPage />} />
+          <Route path="/discover" element={<Discover />} />
+          <Route path="/genre/:slug" element={<BrowseGenre />} />
           <Route element={<ProtectedRoute />}>
             <Route path="/profile/:username" element={<Profile />} />
             <Route path="/profile" element={<Profile />} />

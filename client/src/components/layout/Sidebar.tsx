@@ -1,15 +1,16 @@
 import { Link, useLocation } from 'react-router-dom'
 
 const links = [
-  { to: '/', label: 'Home', icon: '🏠' },
-  { to: '/search', label: 'Search', icon: '🔍' },
-  { to: '/shelves', label: 'My Books', icon: '📖' },
-  { to: '/dashboard', label: 'Dashboard', icon: '📊' },
-  { to: '/goals', label: 'Goals', icon: '🎯' },
-  { to: '/clubs', label: 'Clubs', icon: '👥' },
-  { to: '/ai', label: 'AI', icon: '🤖' },
-  { to: '/collections', label: 'Collections', icon: '📚' },
-  { to: '/settings', label: 'Settings', icon: '⚙️' },
+  { to: '/', label: 'Home' },
+  { to: '/discover', label: 'Discover' },
+  { to: '/search', label: 'Search' },
+  { to: '/shelves', label: 'My Books' },
+  { to: '/dashboard', label: 'Dashboard' },
+  { to: '/goals', label: 'Goals' },
+  { to: '/clubs', label: 'Clubs' },
+  { to: '/ai', label: 'AI' },
+  { to: '/collections', label: 'Collections' },
+  { to: '/settings', label: 'Settings' },
 ]
 
 export default function Sidebar() {
@@ -29,7 +30,6 @@ export default function Sidebar() {
                 : 'text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800'
             }`}
           >
-            <span>{link.icon}</span>
             {link.label}
           </Link>
         )
